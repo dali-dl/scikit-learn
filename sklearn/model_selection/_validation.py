@@ -674,6 +674,8 @@ def _fit_and_score(
     X_test, y_test = _safe_split(estimator, X, y, test, train)
 
     fit_params['sample_weight'] = np.ones((X_train.shape[0])) / X_train.shape[0]
+    import pdb
+    pdb.set_trace()
 
     result = {}
     try:
