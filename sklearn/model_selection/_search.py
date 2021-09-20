@@ -876,10 +876,18 @@ class BaseSearchCV(MetaEstimatorMixin, BaseEstimator, metaclass=ABCMeta):
             self.best_estimator_ = clone(clone(base_estimator).set_params(
                 **self.best_params_))
             refit_start_time = time.time()
+
+            # scale down the C value
+            self.best_estimator_.C = self.best_estimator_.C / X.shape[0]
+
             if y is not None:
                 self.best_estimator_.fit(X, y, **fit_params)
             else:
                 self.best_estimator_.fit(X, **fit_params)
+
+            # scale up the C value
+            self.best_estimator_.C = self.best_estimator_.C * X.shape[0]
+
             refit_end_time = time.time()
             self.refit_time_ = refit_end_time - refit_start_time
 
