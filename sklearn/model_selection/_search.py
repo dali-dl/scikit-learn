@@ -878,6 +878,7 @@ class BaseSearchCV(MetaEstimatorMixin, BaseEstimator, metaclass=ABCMeta):
             refit_start_time = time.time()
 
             # scale down the C value
+            print('scaling of C in Refit')
             self.best_estimator_.C = self.best_estimator_.C / X.shape[0]
 
             if y is not None:
