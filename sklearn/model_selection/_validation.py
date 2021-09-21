@@ -585,13 +585,13 @@ def _fit_and_score(estimator, X, y, scorer, train, test, verbose,
     X_train, y_train = _safe_split(estimator, X, y, train)
     X_test, y_test = _safe_split(estimator, X, y, test, train)
 
-    # fit_params['sample_weight'] = np.ones((X_train.shape[0])) / X_train.shape[0]
-    print('0.24.1.own-> Scaling C')
-
-    estimator.C = estimator.C / X_train.shape[0]
-
     result = {}
     try:
+        # fit_params['sample_weight'] = np.ones((X_train.shape[0])) / X_train.shape[0]
+        print('estimator.C', estimator.C)
+        estimator.C = estimator.C / X_train.shape[0]
+        print('0.24.1.own-> Scaling C', estimator.C, 'Training instance num:', X_train.shape[0])
+
         if y_train is None:
             estimator.fit(X_train, **fit_params)
         else:
